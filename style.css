@@ -917,7 +917,7 @@ p {
 .hero-video {
     object-fit: cover;
     width:75%;
-    height: 75%;
+    height: 100%;
     top: 0;
     left: 0;
     transform: none;
