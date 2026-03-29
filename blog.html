@@ -9,8 +9,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- EmailJS 库和初始化 -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init({
+                publicKey: "d53F-NtO0OEbCcbd",   // 替换为您的 Public Key
+            });
+        })();
+    </script>
     <style>
-        /* 确保博客页面样式与全局一致 */
+        /* 博客页面特有样式（与 style.css 互补） */
         .page-header {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
                         url('https://images.unsplash.com/photo-1488646953014-85cb44e25828') center/cover no-repeat;
@@ -238,11 +247,14 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-            <button class="menu-toggle">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
+           <button id="theme-toggle" class="theme-toggle" aria-label="切换夜间模式">
+            <i class="fas fa-moon"></i>
+        </button>
+        <button class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+</nav>
 
     <!-- 页面头部 -->
     <section class="page-header">
@@ -425,7 +437,7 @@
                                 <span class="post-date">${article.date}</span>
                                 <span class="post-read-time">${article.readTime}</span>
                             </div>
-                            <h3>${article.title}</h3>
+                            <h3>${escapeHtml(article.title)}</h3>
                             <p>${escapeHtml(excerpt)}</p>
                             <a href="article.html?id=${article.id}" class="read-more">Read Article →</a>
                         </div>
@@ -453,11 +465,8 @@
             }
         }
 
-        // ---------- 动态生成热门文章（图片完全匹配内容）----------
-        // 定义热门文章 ID 列表（按阅读量或推荐顺序）
-        const popularIds = ['solo-travel-safety', 'packing-light', 'travel-apps'];
-
-        // 获取热门文章数据并渲染
+        // ---------- 动态生成热门文章 ----------
+        const popularIds = ['solo-travel-safety', 'packing-light', 'travel-apps']; // 可修改为实际文章ID
         function renderPopularPosts() {
             const popularContainer = document.getElementById('popular-posts-container');
             if (!popularContainer) return;
@@ -469,7 +478,7 @@
                         <div class="popular-post">
                             <div class="popular-image" style="background-image: url('${article.image}');"></div>
                             <div class="popular-content">
-                                <h4><a href="article.html?id=${id}">${article.title}</a></h4>
+                                <h4><a href="article.html?id=${id}">${escapeHtml(article.title)}</a></h4>
                                 <span class="post-date">${article.date}</span>
                             </div>
                         </div>
@@ -480,7 +489,7 @@
             popularContainer.innerHTML = html;
         }
 
-        // 简单转义 HTML 防止 XSS（可选）
+        // 简单转义 HTML
         function escapeHtml(str) {
             return str.replace(/[&<>]/g, function(m) {
                 if (m === '&') return '&amp;';
@@ -490,8 +499,40 @@
             });
         }
 
-        // 渲染热门文章
         renderPopularPosts();
+
+        // ---------- EmailJS 订阅功能 ----------
+        // 请将下面的模板ID替换为您在 EmailJS 后台创建的订阅模板ID
+        const SUBSCRIPTION_TEMPLATE_ID = 'template_o62mt3b';  // 替换为您的订阅模板ID
+        const SERVICE_ID = 'service_susbel8';                // 替换为您的服务ID
+
+        function setupNewsletter(form) {
+            if (!form) return;
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const emailInput = this.querySelector('input[type="email"]');
+                const email = emailInput.value.trim();
+                if (!email) {
+                    alert('Please enter your email address.');
+                    return;
+                }
+                emailjs.send(SERVICE_ID, SUBSCRIPTION_TEMPLATE_ID, { email: email })
+                    .then(() => {
+                        alert('Thanks for subscribing! Check your inbox for updates.');
+                        emailInput.value = '';
+                    })
+                    .catch(err => {
+                        console.error('EmailJS error:', err);
+                        alert('Subscription failed. Please try again later.');
+                    });
+            });
+        }
+
+        // 绑定侧边栏订阅表单和底部订阅表单
+        const sidebarForm = document.querySelector('.sidebar-newsletter');
+        const footerForm = document.querySelector('.newsletter-form');
+        setupNewsletter(sidebarForm);
+        setupNewsletter(footerForm);
     </script>
 </body>
 </html>
