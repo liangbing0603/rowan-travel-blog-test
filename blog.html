@@ -9,17 +9,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- EmailJS 库和初始化 -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script type="text/javascript">
-        (function(){
-            emailjs.init({
-                publicKey: "d53F-NtO0OEbCcbd",   // 替换为您的 Public Key
-            });
-        })();
-    </script>
     <style>
-        /* 博客页面特有样式（与 style.css 互补） */
+        /* 博客页面特有样式（暗色模式兼容） */
         .page-header {
             background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
                         url('https://images.unsplash.com/photo-1488646953014-85cb44e25828') center/cover no-repeat;
@@ -51,15 +42,15 @@
             margin-bottom: 40px;
         }
         .blog-post {
-            background: white;
+            background: var(--card-bg);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px var(--shadow-color);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
         .blog-post:hover {
             transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            box-shadow: 0 8px 16px var(--shadow-color);
         }
         .post-image {
             height: 200px;
@@ -71,7 +62,7 @@
             position: absolute;
             top: 15px;
             left: 15px;
-            background: #2E8B57;
+            background: var(--primary-green);
             color: white;
             padding: 5px 12px;
             border-radius: 4px;
@@ -86,17 +77,17 @@
             gap: 15px;
             margin-bottom: 10px;
             font-size: 0.85rem;
-            color: #6C757D;
+            color: var(--text-secondary);
         }
         .post-content h3 {
             font-size: 1.3rem;
             margin-bottom: 10px;
-            color: #228B22;
+            color: var(--primary-green);
         }
         .read-more {
             display: inline-block;
             margin-top: 12px;
-            color: #2E8B57;
+            color: var(--primary-green);
             font-weight: 600;
             text-decoration: none;
         }
@@ -104,17 +95,18 @@
             text-decoration: underline;
         }
         .sidebar-widget {
-            background: white;
+            background: var(--card-bg);
             padding: 25px;
             border-radius: 8px;
             margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px var(--shadow-color);
         }
         .sidebar-widget h3 {
             margin-bottom: 20px;
             font-size: 1.3rem;
-            border-left: 4px solid #2E8B57;
+            border-left: 4px solid var(--primary-green);
             padding-left: 12px;
+            color: var(--text-primary);
         }
         .search-box {
             display: flex;
@@ -122,13 +114,15 @@
         .search-box input {
             flex: 1;
             padding: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
             border-radius: 4px 0 0 4px;
             outline: none;
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
         .search-box button {
             padding: 10px 15px;
-            background: #2E8B57;
+            background: var(--primary-green);
             color: white;
             border: none;
             border-radius: 0 4px 4px 0;
@@ -145,10 +139,10 @@
             display: flex;
             justify-content: space-between;
             text-decoration: none;
-            color: #343A40;
+            color: var(--text-primary);
         }
         .categories-list a:hover {
-            color: #2E8B57;
+            color: var(--primary-green);
         }
         .popular-posts {
             display: flex;
@@ -173,21 +167,23 @@
         }
         .popular-content h4 a {
             text-decoration: none;
-            color: #343A40;
+            color: var(--text-primary);
         }
         .popular-content h4 a:hover {
-            color: #2E8B57;
+            color: var(--primary-green);
         }
         .popular-content .post-date {
             font-size: 0.8rem;
-            color: #6C757D;
+            color: var(--text-secondary);
         }
         .sidebar-newsletter input {
             width: 100%;
             padding: 10px;
             margin-bottom: 10px;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-color);
             border-radius: 4px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
         }
         .tags {
             display: flex;
@@ -195,15 +191,15 @@
             gap: 8px;
         }
         .tag {
-            background: #f0f0f0;
+            background: var(--bg-secondary);
             padding: 5px 12px;
             border-radius: 20px;
             font-size: 0.85rem;
             text-decoration: none;
-            color: #343A40;
+            color: var(--text-primary);
         }
         .tag:hover {
-            background: #2E8B57;
+            background: var(--primary-green);
             color: white;
         }
         .pagination {
@@ -214,19 +210,19 @@
         }
         .page-btn {
             padding: 8px 12px;
-            border: 1px solid #ddd;
-            background: white;
+            border: 1px solid var(--border-color);
+            background: var(--card-bg);
             text-decoration: none;
-            color: #343A40;
+            color: var(--text-primary);
             border-radius: 4px;
         }
         .page-btn.active {
-            background: #2E8B57;
+            background: var(--primary-green);
             color: white;
-            border-color: #2E8B57;
+            border-color: var(--primary-green);
         }
         .page-btn:hover:not(.active) {
-            background: #f0f0f0;
+            background: var(--bg-secondary);
         }
         @media (max-width: 992px) {
             .blog-layout {
@@ -234,6 +230,15 @@
             }
         }
     </style>
+    <!-- EmailJS 库和初始化 -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function(){
+            emailjs.init({
+                publicKey: "d53F-NtO0OEbCcbd",   // 替换为您的 Public Key
+            });
+        })();
+    </script>
 </head>
 <body>
     <!-- 导航栏 -->
@@ -247,14 +252,15 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-           <button id="theme-toggle" class="theme-toggle" aria-label="切换夜间模式">
-            <i class="fas fa-moon"></i>
-        </button>
-        <button class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </button>
-    </div>
-</nav>
+            <!-- 夜间模式切换按钮 -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="切换夜间模式">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
 
     <!-- 页面头部 -->
     <section class="page-header">
@@ -268,13 +274,10 @@
     <section class="section blog-content">
         <div class="container">
             <div class="blog-layout">
-                <!-- 左侧：动态文章列表容器 -->
                 <div class="blog-main">
                     <div id="blog-posts-container"></div>
                     <div class="pagination" id="pagination"></div>
                 </div>
-
-                <!-- 右侧：侧边栏 -->
                 <aside class="blog-sidebar">
                     <div class="sidebar-widget">
                         <h3>Search Blog</h3>
@@ -283,7 +286,6 @@
                             <button><i class="fas fa-search"></i></button>
                         </div>
                     </div>
-
                     <div class="sidebar-widget">
                         <h3>Categories</h3>
                         <ul class="categories-list">
@@ -296,13 +298,10 @@
                             <li><a href="#">Digital Nomad <span>4</span></a></li>
                         </ul>
                     </div>
-
-                    <!-- 热门文章容器（动态生成） -->
                     <div class="sidebar-widget" id="popular-posts-widget">
                         <h3>Popular Posts</h3>
                         <div id="popular-posts-container"></div>
                     </div>
-
                     <div class="sidebar-widget newsletter-widget">
                         <h3>Join the Community</h3>
                         <p>Get weekly travel inspiration and exclusive content.</p>
@@ -311,7 +310,6 @@
                             <button type="submit" class="btn-primary">Subscribe</button>
                         </form>
                     </div>
-
                     <div class="sidebar-widget">
                         <h3>Popular Tags</h3>
                         <div class="tags">
@@ -414,17 +412,14 @@
             }
         }
 
-        // 按日期排序（最新在前）
         filteredArticles.sort((a, b) => new Date(b.date) - new Date(a.date));
 
-        // 渲染主文章列表
         const container = document.getElementById('blog-posts-container');
         if (filteredArticles.length === 0) {
             container.innerHTML = '<p style="text-align:center; padding:40px;">No posts found with this tag. <a href="blog.html">View all posts</a>.</p>';
         } else {
             let html = '<div class="blog-posts-grid">';
             filteredArticles.forEach(article => {
-                // 生成纯文本摘要（去除 HTML 标签）
                 let plainText = article.content.replace(/<[^>]*>/g, '');
                 let excerpt = plainText.substring(0, 120) + (plainText.length > 120 ? '...' : '');
                 html += `
@@ -448,7 +443,6 @@
             container.innerHTML = html;
         }
 
-        // 处理分页（简化）
         if (tagFilter) {
             document.getElementById('pagination').style.display = 'none';
         } else {
@@ -465,8 +459,7 @@
             }
         }
 
-        // ---------- 动态生成热门文章 ----------
-        const popularIds = ['solo-travel-safety', 'packing-light', 'travel-apps']; // 可修改为实际文章ID
+        const popularIds = ['solo-travel-safety', 'packing-light', 'travel-apps'];
         function renderPopularPosts() {
             const popularContainer = document.getElementById('popular-posts-container');
             if (!popularContainer) return;
@@ -489,7 +482,6 @@
             popularContainer.innerHTML = html;
         }
 
-        // 简单转义 HTML
         function escapeHtml(str) {
             return str.replace(/[&<>]/g, function(m) {
                 if (m === '&') return '&amp;';
@@ -501,11 +493,9 @@
 
         renderPopularPosts();
 
-        // ---------- EmailJS 订阅功能 ----------
-        // 请将下面的模板ID替换为您在 EmailJS 后台创建的订阅模板ID
+        // EmailJS 订阅功能
         const SUBSCRIPTION_TEMPLATE_ID = 'template_o62mt3b';  // 替换为您的订阅模板ID
-        const SERVICE_ID = 'service_susbel8';                // 替换为您的服务ID
-
+        const SERVICE_ID = 'service_susbel8';
         function setupNewsletter(form) {
             if (!form) return;
             form.addEventListener('submit', function(e) {
@@ -527,12 +517,36 @@
                     });
             });
         }
+        setupNewsletter(document.querySelector('.sidebar-newsletter'));
+        setupNewsletter(document.querySelector('.newsletter-form'));
+    </script>
+    <script>
+        // 主题切换功能（与全局保持一致）
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
 
-        // 绑定侧边栏订阅表单和底部订阅表单
-        const sidebarForm = document.querySelector('.sidebar-newsletter');
-        const footerForm = document.querySelector('.newsletter-form');
-        setupNewsletter(sidebarForm);
-        setupNewsletter(footerForm);
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+        }
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const theme = document.documentElement.getAttribute('data-theme');
+                if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            });
+        }
     </script>
 </body>
 </html>

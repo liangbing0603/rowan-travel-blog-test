@@ -9,6 +9,278 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Additional styles for about page (dark mode compatible) */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4') center/cover no-repeat;
+            color: white;
+            text-align: center;
+            padding: 100px 0 60px;
+            margin-top: 60px;
+        }
+        
+        .page-header h1 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+        
+        .page-header p {
+            font-size: 1.3rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .about-intro {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+        
+        .image-placeholder-large {
+            width: 350px;
+            height: 350px;
+            background: linear-gradient(135deg, var(--light-green), var(--sky-blue));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 6rem;
+            margin: 0 auto;
+        }
+        
+        .about-intro-content h2 {
+            color: var(--text-primary);
+            margin-bottom: 25px;
+            font-size: 2.5rem;
+        }
+        
+        .about-intro-content p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 50px auto;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-green);
+            transform: translateX(-50%);
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin-bottom: 50px;
+            position: relative;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+        
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+        
+        .timeline-year {
+            flex: 0 0 100px;
+            background: var(--primary-green);
+            color: white;
+            padding: 10px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+            z-index: 1;
+        }
+        
+        .timeline-content {
+            flex: 1;
+            padding: 25px;
+            background: var(--card-bg);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-md);
+            margin: 0 30px;
+            position: relative;
+        }
+        
+        .timeline-content::before {
+            content: '';
+            position: absolute;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            background: var(--primary-green);
+            border-radius: 50%;
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::before {
+            right: -40px;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::before {
+            left: -40px;
+        }
+        
+        .timeline-content h3 {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+        }
+        
+        /* Philosophy Grid */
+        .philosophy-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        
+        .philosophy-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.3s ease;
+        }
+        
+        .philosophy-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .philosophy-card i {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+        }
+        
+        .philosophy-card h3 {
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+        
+        /* Fun Facts */
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+        
+        .fact-card {
+            background: var(--card-bg);
+            padding: 30px 20px;
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            border-top: 4px solid var(--primary-green);
+        }
+        
+        .fact-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+        
+        .fact-text {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+        
+        /* Connect Section */
+        .connect-section {
+            text-align: center;
+            padding: 60px 0;
+            background: linear-gradient(135deg, var(--primary-green), var(--sky-blue));
+            color: white;
+            border-radius: var(--radius-lg);
+            margin-top: 60px;
+        }
+        
+        .connect-section h2 {
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .connect-section p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+        }
+        
+        .connect-section .btn-primary {
+            background: white;
+            color: var(--primary-green);
+        }
+        
+        .connect-section .btn-primary:hover {
+            background: var(--forest-dark);
+            color: white;
+        }
+        
+        @media (max-width: 992px) {
+            .about-intro {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .image-placeholder-large {
+                width: 250px;
+                height: 250px;
+                font-size: 4rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                flex-direction: row !important;
+            }
+            
+            .timeline-year {
+                flex: 0 0 80px;
+            }
+            
+            .timeline-content {
+                margin-left: 60px;
+                margin-right: 0;
+            }
+            
+            .timeline-content::before {
+                left: -40px !important;
+                right: auto !important;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .page-header p {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -22,14 +294,15 @@
                 <li><a href="about.html" class="active">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
-           <button id="theme-toggle" class="theme-toggle" aria-label="切换夜间模式">
-            <i class="fas fa-moon"></i>
-        </button>
-        <button class="menu-toggle">
-            <i class="fas fa-bars"></i>
-        </button>
-    </div>
-</nav>
+            <!-- 夜间模式切换按钮 -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="切换夜间模式">
+                <i class="fas fa-moon"></i>
+            </button>
+            <button class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
 
     <!-- Page Header -->
     <section class="page-header">
@@ -220,275 +493,33 @@
     </footer>
 
     <script src="script.js"></script>
-    <style>
-        /* Additional styles for about page */
-        .page-header {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-                        url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4') center/cover no-repeat;
-            color: white;
-            text-align: center;
-            padding: 100px 0 60px;
-            margin-top: 60px;
+    <script>
+        // 主题切换功能（与全局保持一致）
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            if (themeToggle) themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
         }
-        
-        .page-header h1 {
-            color: white;
-            font-size: 3rem;
-            margin-bottom: 20px;
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const theme = document.documentElement.getAttribute('data-theme');
+                if (theme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            });
         }
-        
-        .page-header p {
-            font-size: 1.3rem;
-            opacity: 0.9;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        
-        .about-intro {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            align-items: center;
-            margin-bottom: 80px;
-        }
-        
-        .image-placeholder-large {
-            width: 350px;
-            height: 350px;
-            background: linear-gradient(135deg, var(--light-green), var(--sky-blue));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 6rem;
-            margin: 0 auto;
-        }
-        
-        .about-intro-content h2 {
-            color: var(--forest-dark);
-            margin-bottom: 25px;
-            font-size: 2.5rem;
-        }
-        
-        .about-intro-content p {
-            margin-bottom: 20px;
-            font-size: 1.1rem;
-            line-height: 1.7;
-        }
-        
-        /* Timeline */
-        .timeline {
-            position: relative;
-            max-width: 800px;
-            margin: 50px auto;
-        }
-        
-        .timeline::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            top: 0;
-            bottom: 0;
-            width: 2px;
-            background: var(--primary-green);
-            transform: translateX(-50%);
-        }
-        
-        .timeline-item {
-            display: flex;
-            margin-bottom: 50px;
-            position: relative;
-        }
-        
-        .timeline-item:nth-child(odd) {
-            flex-direction: row;
-        }
-        
-        .timeline-item:nth-child(even) {
-            flex-direction: row-reverse;
-        }
-        
-        .timeline-year {
-            flex: 0 0 100px;
-            background: var(--primary-green);
-            color: white;
-            padding: 10px;
-            border-radius: var(--radius-md);
-            text-align: center;
-            font-weight: 600;
-            font-size: 1.1rem;
-            z-index: 1;
-        }
-        
-        .timeline-content {
-            flex: 1;
-            padding: 25px;
-            background: white;
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-md);
-            margin: 0 30px;
-            position: relative;
-        }
-        
-        .timeline-content::before {
-            content: '';
-            position: absolute;
-            top: 20px;
-            width: 20px;
-            height: 20px;
-            background: var(--primary-green);
-            border-radius: 50%;
-        }
-        
-        .timeline-item:nth-child(odd) .timeline-content::before {
-            right: -40px;
-        }
-        
-        .timeline-item:nth-child(even) .timeline-content::before {
-            left: -40px;
-        }
-        
-        .timeline-content h3 {
-            color: var(--forest-dark);
-            margin-bottom: 10px;
-        }
-        
-        /* Philosophy Grid */
-        .philosophy-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
-        }
-        
-        .philosophy-card {
-            background: white;
-            padding: 30px;
-            border-radius: var(--radius-md);
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.3s ease;
-        }
-        
-        .philosophy-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-md);
-        }
-        
-        .philosophy-card i {
-            font-size: 2.5rem;
-            color: var(--primary-green);
-            margin-bottom: 20px;
-        }
-        
-        .philosophy-card h3 {
-            margin-bottom: 15px;
-            color: var(--forest-dark);
-        }
-        
-        /* Fun Facts */
-        .facts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
-        }
-        
-        .fact-card {
-            background: white;
-            padding: 30px 20px;
-            border-radius: var(--radius-md);
-            text-align: center;
-            box-shadow: var(--shadow-sm);
-            border-top: 4px solid var(--primary-green);
-        }
-        
-        .fact-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary-green);
-            margin-bottom: 10px;
-        }
-        
-        .fact-text {
-            color: var(--dark-gray);
-            font-size: 1rem;
-        }
-        
-        /* Connect Section */
-        .connect-section {
-            text-align: center;
-            padding: 60px 0;
-            background: linear-gradient(135deg, var(--light-green), var(--sky-blue));
-            color: white;
-            border-radius: var(--radius-lg);
-            margin-top: 60px;
-        }
-        
-        .connect-section h2 {
-            color: white;
-            margin-bottom: 20px;
-        }
-        
-        .connect-section p {
-            max-width: 600px;
-            margin: 0 auto 30px;
-            opacity: 0.9;
-        }
-        
-        .connect-section .btn-primary {
-            background: white;
-            color: var(--primary-green);
-        }
-        
-        .connect-section .btn-primary:hover {
-            background: var(--forest-dark);
-            color: white;
-        }
-        
-        @media (max-width: 992px) {
-            .about-intro {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .image-placeholder-large {
-                width: 250px;
-                height: 250px;
-                font-size: 4rem;
-            }
-            
-            .timeline::before {
-                left: 30px;
-            }
-            
-            .timeline-item {
-                flex-direction: row !important;
-            }
-            
-            .timeline-year {
-                flex: 0 0 80px;
-            }
-            
-            .timeline-content {
-                margin-left: 60px;
-                margin-right: 0;
-            }
-            
-            .timeline-content::before {
-                left: -40px !important;
-                right: auto !important;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            .page-header h1 {
-                font-size: 2.2rem;
-            }
-            
-            .page-header p {
-                font-size: 1.1rem;
-            }
-            
-            .about-intro-content h
+    </script>
+</body>
+</html>

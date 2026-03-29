@@ -70,7 +70,7 @@
             left: 0;
             width: 80px;
             height: 4px;
-            background: var(--accent-orange);
+            background: #f39c12;  /* accent color */
         }
         
         .info-grid {
@@ -81,7 +81,7 @@
         }
         
         .info-card {
-            background: white;
+            background: var(--card-bg);
             border-radius: var(--radius-lg);
             padding: 30px;
             box-shadow: var(--shadow-md);
@@ -105,7 +105,7 @@
         
         .info-card li {
             padding: 8px 0;
-            border-bottom: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--border-color);
         }
         
         .info-card li:last-child {
@@ -113,7 +113,7 @@
         }
         
         .info-card li i {
-            color: var(--accent-orange);
+            color: #f39c12;
             margin-right: 10px;
             width: 20px;
         }
@@ -144,7 +144,7 @@
         }
         
         .tips-list {
-            background: white;
+            background: var(--card-bg);
             border-radius: var(--radius-lg);
             padding: 30px;
             box-shadow: var(--shadow-md);
@@ -155,7 +155,7 @@
             align-items: flex-start;
             margin-bottom: 25px;
             padding-bottom: 25px;
-            border-bottom: 1px solid var(--light-gray);
+            border-bottom: 1px solid var(--border-color);
         }
         
         .tip-item:last-child {
@@ -214,6 +214,10 @@
                 <li><a href="about.html">About</a></li>
                 <li><a href="contact.html">Contact</a></li>
             </ul>
+            <!-- 夜间模式切换按钮 -->
+            <button id="theme-toggle" class="theme-toggle" aria-label="切换夜间模式">
+                <i class="fas fa-moon"></i>
+            </button>
             <button class="menu-toggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -344,5 +348,39 @@
 
     <!-- JavaScript -->
     <script src="guide-data.js"></script>
+    <script>
+        // 主题切换功能（与全局保持一致）
+        const themeToggle = document.getElementById('theme-toggle');
+        const currentTheme = localStorage.getItem('theme') || 'light';
+
+        // 设置初始主题
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            if (themeToggle) {
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            }
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            if (themeToggle) {
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+            }
+        }
+
+        // 切换主题
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const currentTheme = document.documentElement.getAttribute('data-theme');
+                if (currentTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    localStorage.setItem('theme', 'light');
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+                } else {
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    localStorage.setItem('theme', 'dark');
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+                }
+            });
+        }
+    </script>
 </body>
 </html>
