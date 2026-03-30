@@ -872,7 +872,6 @@ p {
 }
 
 @media (max-width: 768px) {
-   @media (max-width: 768px) {
     .menu-toggle {
         display: block;
     }
@@ -911,40 +910,11 @@ p {
     .faq-section {
         padding: var(--spacing-lg);
     }
- /* 手机端视频高度和适配（核心调整项） */
-.hero {
-    height: 80vh; /* 改这个数值就能调手机端页面高度，比如70vh/90vh */
-}
-.hero-video {
-    object-fit: cover;
-    width:75%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    transform: none;
-}
-    .hero h1 {
-        font-size: 2.2rem;
-    }
-    
-    .subtitle {
-        font-size: 1.1rem;
+    .hero-video {
+        object-fit: contain;  /* 手机端完整显示视频，根据需求可调整 */
     }
 }
-body {
-        transform: scale(0.75);
-        transform-origin: top left;
-        width: 133.33%;  /* 抵消缩放，使内容宽度填满屏幕 */
-    }
-/* 消除顶部空白 */
-.navbar {
-        height: 60px;  /* 固定高度，与桌面端一致 */
-        padding: 0;    /* 如有需要调整内边距 */
-    }
-    .navbar .container {
-        height: 100%;
-    }
-}
+
 @media (max-width: 576px) {
     .container {
         padding: 0 var(--spacing-sm);
